@@ -4,23 +4,12 @@
     <input type="text" v-model="email" placeholder="Email"><br>
     <input v-bind:type="type" v-model="password" placeholder="Password">
     <div><input type="checkbox" v-on:click="togglePass" /><span>Show Password</span></div>
-    <button v-on:click="signIn">Connection</button>
+    <button class="btn-primary" v-on:click="signIn">Log In</button>
   </div>
 </template>
 
 <script>
 import firebase from 'firebase';
-
-const signIn = function () {
-  firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(() => {
-    this.$router.replace('todos');
-  },
-  ({ message }) => alert(`Oops. ${message}`));
-};
-
-const togglePass = function () {
-  this.type = this.type === 'text' ? 'password' : 'text';
-};
 
 export default {
   name: 'login',
@@ -30,8 +19,14 @@ export default {
     type: 'password',
   }),
   methods: {
-    signIn,
-    togglePass,
+    signIn() {
+      firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(() => {
+        this.$router.replace('todos');
+      }).catch(({ message }) => alert(`Oops. ${message}`));
+    },
+    togglePass() {
+      this.type = this.type === 'text' ? 'password' : 'text';
+    },
   },
 };
 

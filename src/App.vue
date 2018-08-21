@@ -20,4 +20,14 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+.btn-primary {
+  border: none;
+  font-weight: normal;
+  color: #fff;
+  background: #42b983;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 5px;
+}
 </style>
