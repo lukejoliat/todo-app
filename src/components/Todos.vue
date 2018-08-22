@@ -46,8 +46,7 @@ export default {
         .catch(({ message }) => alert(`Oops. ${message}`));
     },
     updateStatus(complete, id) {
-      const status = !complete;
-      db.collection('todos').doc(id).update({ complete: status })
+      db.collection('todos').doc(id).update({ complete: !complete })
         .catch(({ message }) => alert(`Oops. ${message}`));
     },
   },
