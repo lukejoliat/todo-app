@@ -1,15 +1,16 @@
 <template>
-  <div class="login">
+  <form class="login" @submit.prevent="signIn">
     <h3>Sign In</h3>
-    <input type="text" v-model="email" placeholder="Email"><br>
-    <input v-bind:type="type" v-model="password" placeholder="Password">
+    <input type="text" v-model="email" placeholder="Email" required>
+    <input v-bind:type="type" v-model="password" placeholder="Password" required>
     <div><input type="checkbox" v-on:click="togglePass" /><span>Show Password</span></div>
     <button class="btn-primary" v-on:click="signIn">Log In</button>
-  </div>
+  </form>
 </template>
 
 <script>
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 export default {
   name: 'login',
@@ -35,16 +36,18 @@ export default {
 <style scoped>
 /* "scoped" attribute limit the CSS to this component only */
 .login {
-  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .login > input {
+  width: 80%;
   margin: 10px 0;
-  width: 20%;
   padding: 15px;
 }
 button {
+  width: 80%;
   margin-top: 20px;
-  width: 10%;
   cursor: pointer;
 }
 p {
@@ -54,5 +57,13 @@ p {
 p a {
   text-decoration: underline;
   cursor: pointer;
+}
+@media (min-width: 500px) {
+  .login > input {
+    width: 325px;
+  }
+  button {
+    width: 175px;
+  }
 }
 </style>

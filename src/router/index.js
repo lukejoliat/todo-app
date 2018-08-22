@@ -2,7 +2,8 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Login from '@/components/Login';
 import Todos from '@/components/Todos';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 Vue.use(Router);
 

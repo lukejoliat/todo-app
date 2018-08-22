@@ -1,15 +1,16 @@
 <template>
-  <div>
-    <form action="">
-       <label for="title">Add new:</label><input type="text" v-model="title" id="title">
-       <button class="btn-primary" v-on:click="add" type="button">Add</button>
-    </form>
-  </div>
+    <div class="bar">
+      <form @submit.prevent="add" autocomplete="off">
+         <input type="text" placeholder="Add New" v-model="title" id="title" required>
+         <button class="btn-primary" v-on:click="add" type="button">Add</button>
+      </form>
+    </div>
 </template>
 
 <script>
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import db from '../main';
-import firebase from 'firebase';
 
 export default {
   name: 'CreateTodo',
@@ -20,7 +21,7 @@ export default {
     add() {
       db.collection('todos').add({ title: this.title, uid: firebase.auth().currentUser.uid, complete: false });
       this.title = '';
-    }
+    },
   },
 };
 
@@ -28,17 +29,33 @@ export default {
 
 <style scoped>
 input {
-  width: 20%;
   padding: 15px;
   display: block;
   margin: auto;
+  flex: 1;
 }
-.btn-primary {
-  border: none;
-  font-weight: normal;
-  color: #fff;
-  background: #42b983;
-  padding: 6px 10px;
-  font-size: 16px;
+button {
+  margin: 0;
+}
+form {
+  display: flex;
+  width: 80%;
+  bottom: 15px;
+}
+.bar {
+  position: fixed;
+  background: white;
+  width: 100%;
+  bottom: 0;
+  justify-content: center;
+  display: flex;
+  padding: 10px;
+  box-shadow: black 0px 5px 11px;
+}
+
+@media (min-width: 500px) {
+  form {
+    max-width: 800px;
+  }
 }
 </style>
