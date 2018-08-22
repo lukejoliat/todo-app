@@ -12,8 +12,8 @@
             <span class="checkmark"></span>
           </label>
           <h1 v-if="!todo.complete">{{ todo.title }}</h1>
-          <h1 v-if="todo.complete"><del>{{ todo.title }}</del></h1>
-          <button class="btn-primary delete" v-on:click="deleteLocation(todo.id)">x</button>
+          <h1 v-else><del>{{ todo.title }}</del></h1>
+          <button class="btn-primary delete" v-on:click="deleteItem(todo.id)">x</button>
       </article>
     </transition-group>
     <CreateTodo></CreateTodo>
@@ -41,7 +41,7 @@ export default {
       firebase.auth().signOut().then(() => router.replace('/'))
         .catch(({ message }) => alert(`Oops. ${message}`));
     },
-    deleteLocation(id) {
+    deleteItem(id) {
       db.collection('todos').doc(id).delete()
         .catch(({ message }) => alert(`Oops. ${message}`));
     },
@@ -52,9 +52,7 @@ export default {
     },
   },
   firestore() {
-    return {
-      todos: db.collection('todos').where('uid', '==', firebase.auth().currentUser.uid),
-    };
+    return { todos: db.collection('todos').where('uid', '==', firebase.auth().currentUser.uid) };
   },
 };
 </script>

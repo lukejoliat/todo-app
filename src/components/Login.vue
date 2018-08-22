@@ -4,7 +4,7 @@
     <input type="text" v-model="email" placeholder="Email" required>
     <input v-bind:type="type" v-model="password" placeholder="Password" required>
     <div><input type="checkbox" v-on:click="togglePass" /><span>Show Password</span></div>
-    <button class="btn-primary" v-on:click="signIn">Log In</button>
+    <button class="btn-primary">Log In</button>
   </form>
 </template>
 
