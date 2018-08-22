@@ -19,7 +19,7 @@ export default {
   }),
   methods: {
     add() {
-      db.collection('todos').add({ title: this.title, uid: firebase.auth().currentUser.uid, complete: false });
+      db.collection('todos').add({ title: this.title, uid: firebase.auth().currentUser.uid, complete: false }).catch(({ message }) => alert(`Oops. ${message}`));
       this.title = '';
     },
   },
