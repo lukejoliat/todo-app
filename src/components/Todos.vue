@@ -3,7 +3,7 @@
     <button class="btn-primary log-out" v-on:click="signOut">Log Out</button>
     <h1><u>My Todos:</u></h1>
     <transition-group name="list-complete" tag="p" class="transition-wrapper">
-        <article v-for="(todo, idx) in todos" :key="idx" class="todo list-complete-item">
+        <article v-for="todo in todos" v-bind:key="todo.id" class="todo list-complete-item">
           <label class="container">
             <input
               type="checkbox"
@@ -16,17 +16,6 @@
           <button class="btn-primary delete" v-on:click="deleteLocation(todo.id)">x</button>
       </article>
     </transition-group>
-    <!-- <transition-group name="list-complete" tag="p">
-      <span
-        v-for="item in items"
-        v-bind:key="item"
-        class="list-complete-item">
-        {{ item }}
-      </span>
-    </transition-group>
-    <button v-on:click="remove">
-      Delete
-    </button> -->
     <CreateTodo></CreateTodo>
   </div>
 </template>
@@ -45,7 +34,6 @@ export default {
   data() {
     return {
       todos: [],
-      items: [1,2,3,4,5,6,7,8,9],
     };
   },
   methods: {
@@ -62,15 +50,6 @@ export default {
       db.collection('todos').doc(id).update({ complete: status })
         .catch(({ message }) => alert(`Oops. ${message}`));
     },
-    randomIndex() {
-      return Math.floor(Math.random() * this.items.length);
-    },
-    add() {
-      this.items.splice(this.randomIndex(), 0 , this.nextNum++);
-    },
-    remove() {
-      this.items.splice(this.randomIndex(), 1);
-    },
   },
   firestore() {
     return {
@@ -85,8 +64,7 @@ export default {
 article {
   display: flex;
   align-items: center;
-  width: 80%;
-  margin: auto;
+  width: 100%;
 }
 h1,
 h2 {
@@ -96,9 +74,6 @@ h2 {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-li {
-  margin: 0 10px;
-}
 a {
   color: #42b983;
 }
@@ -106,6 +81,8 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: auto;
+  width: 80%;
 }
 .todo > * {
   display: inline-block;
@@ -188,6 +165,9 @@ a {
 }
 
 .transition-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 100%;
 }
 
@@ -199,13 +179,14 @@ a {
   opacity: 0;
   transform: translateY(30px);
 }
+
 .list-complete-leave-active {
   position: absolute;
 }
 
-@media (min-width: 500px) {
-  article {
-    max-width: 800px;
+@media (min-width: 850px) {
+  .todos {
+    width: 850px;
   }
 }
 </style>

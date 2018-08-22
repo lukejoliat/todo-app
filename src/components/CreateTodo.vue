@@ -53,9 +53,9 @@ form {
   box-shadow: black 0px 5px 11px;
 }
 
-@media (min-width: 500px) {
+@media (min-width: 850px) {
   form {
-    max-width: 800px;
+    max-width: 850px;
   }
 }
 </style>
