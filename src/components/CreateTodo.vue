@@ -9,6 +9,7 @@
 
 <script>
 import db from '../main';
+import firebase from 'firebase';
 
 export default {
   name: 'CreateTodo',
@@ -17,7 +18,7 @@ export default {
   }),
   methods: {
     add() {
-      db.collection('todos').add({ title: this.title, complete: false });
+      db.collection('todos').add({ title: this.title, uid: firebase.auth().currentUser.uid, complete: false });
       this.title = '';
     }
   },

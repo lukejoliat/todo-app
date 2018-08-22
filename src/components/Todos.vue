@@ -3,7 +3,8 @@
     <h1><u>Todos:</u></h1>
     <article v-for="(todo, idx) in todos" :key="idx" class="todo">
       <input type="checkbox" v-bind:checked="todo.complete" v-on:click="updateStatus(todo.complete, todo.id)">
-      <h1>{{ todo.title }}</h1>
+      <h1 v-if="!todo.complete">{{ todo.title }}</h1>
+      <h1 v-if="todo.complete"><del>{{ todo.title }}</del></h1>
       <button class="btn-primary" v-on:click="deleteLocation(todo.id)">x</button>
     </article>
     <CreateTodo></CreateTodo>
@@ -44,7 +45,7 @@ export default {
   },
   firestore() {
     return {
-      todos: db.collection('todos'),
+      todos: db.collection('todos').where('uid', '==', firebase.auth().currentUser.uid),
     };
   },
 };
